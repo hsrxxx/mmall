@@ -86,9 +86,9 @@
             </span>
         </span>
             <span class="fr">
-            <span class="fl">你好，请<a href="/login.html" style="color:#ff4e00;">登录</a>&nbsp;<a href="/register.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;&nbsp;</span>
-            <span class="fl"><a href="/userInfo.html" >欢迎回来，张三</a>&nbsp;|&nbsp;<a href="/orderList.html">我的订单</a>&nbsp;</span>
-            <span class="fl">|&nbsp;<a>注销</a></span>
+            <span class="fl" th:if="${session.user == null}">你好，请<a href="/login.html" style="color:#ff4e00;">登录</a>&nbsp;<a href="/register.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;&nbsp;</span>
+            <span class="fl" th:if="${session.user != null}"><a href="/userInfo.html" >欢迎回来，<spen th:text="${session.user.userName}"></spen></a>&nbsp;|&nbsp;<a href="/orderList.html">我的订单</a>&nbsp;</span>
+            <span class="fl" th:if="${session.user != null}">|&nbsp;<a href="/user/logout">注销</a></span>
         </span>
         </div>
     </div>
@@ -115,7 +115,7 @@
     <!-- search -->
     <div class="top">
         <div class="logo">
-            <a href="/main.html"><img src="/images/logo.png" style="width: 230px;border:0px solid red;"></a>
+            <a href="/productCategory/list"><img src="/images/logo.png" style="width: 230px;border:0px solid red;"></a>
         </div>
         <div class="search">
             <form action="/productList.html" method="post">
@@ -178,66 +178,29 @@
                 <div class="nav_t">全部商品分类</div>
                 <div class="leftNav">
                     <ul>
-                        <li>
+                        <li th:each="levelOne:${list}">
                             <div class="fj">
-                                <span class="n_img"></span> <span class="fl" >一级分类1</span>
+                                <span class="n_img"></span> <span class="fl" th:text="${levelOne.name}"></span>
                             </div>
                             <div class="zj">
                                 <div class="zj_l">
-                                    <div class="zj_l_c">
+                                    <div class="zj_l_c" th:each="levelTwo:${levelOne.children}">
                                         <h2>
-                                            <a href="/productList.html">二级分类1</a>
+                                            <a href="/productList.html" th:text="${levelTwo.name}"></a>
                                         </h2>
-                                        <a href="/productList.html">三级分类1</a>
-                                        <a href="/productList.html">三级分类1</a>
-                                        <a href="/productList.html">三级分类1</a>
-                                    </div>
-                                    <div class="zj_l_c">
-                                        <h2>
-                                            <a href="/productList.html">二级分类2</a>
-                                        </h2>
-                                        <a href="/productList.html">三级分类2</a>
-                                        <a href="/productList.html">三级分类2</a>
-                                        <a href="/productList.html">三级分类2</a>
+                                        <a href="/productList.html" th:each="levelThree:${levelTwo.children}" th:text="${levelThree.name}"></a>
                                     </div>
                                 </div>
                             </div>
                         </li>
-
-                        <li>
-                            <div class="fj">
-                                <span class="n_img"></span> <span class="fl" >一级分类1</span>
-                            </div>
-                            <div class="zj">
-                                <div class="zj_l">
-                                    <div class="zj_l_c">
-                                        <h2>
-                                            <a href="/productList.html">二级分类1</a>
-                                        </h2>
-                                        <a href="/productList.html">三级分类1</a>
-                                        <a href="/productList.html">三级分类1</a>
-                                        <a href="/productList.html">三级分类1</a>
-                                    </div>
-                                    <div class="zj_l_c">
-                                        <h2>
-                                            <a href="/productList.html">二级分类2</a>
-                                        </h2>
-                                        <a href="/productList.html">三级分类2</a>
-                                        <a href="/productList.html">三级分类2</a>
-                                        <a href="/productList.html">三级分类2</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
 
                     </ul>
                 </div>
             </div>
             <ul class="menu_r">
-                <li><a href="/main.html">首页</a></li>
-                <li>
-                    <a href="/productList.html">一级分类</a>
+                <li><a href="/productCategory/list">首页</a></li>
+                <li th:each="productCategory:${list}">
+                    <a href="/productList.html" th:text="${productCategory.name}"></a>
                 </li>
             </ul>
         </div>
