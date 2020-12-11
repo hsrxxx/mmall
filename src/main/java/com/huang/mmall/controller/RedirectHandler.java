@@ -11,4 +11,12 @@ public class RedirectHandler {
     public String redirect(@PathVariable("url") String url){
         return url;
     }
+
+    @GetMapping("/")
+    public String main(){
+        //重定向 路径改变
+        return "redirect:/productCategory/list";
+        //转发 路径不变
+//        return "forward:/productCategory/list";
+    }
 }

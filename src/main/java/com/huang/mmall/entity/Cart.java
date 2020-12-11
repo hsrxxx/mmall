@@ -26,7 +26,7 @@ public class Cart implements Serializable {
 
     private Integer quantity;
 
-    private Integer cost;
+    private Float cost;
 
     private Integer userId;
 
@@ -61,11 +61,11 @@ public class Cart implements Serializable {
           this.quantity = quantity;
       }
     
-    public Integer getCost() {
+    public Float getCost() {
         return cost;
     }
 
-      public void setCost(Integer cost) {
+      public void setCost(Float cost) {
           this.cost = cost;
       }
     

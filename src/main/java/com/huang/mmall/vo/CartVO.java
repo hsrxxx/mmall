@@ -1,0 +1,13 @@
+package com.huang.mmall.vo;
+
+import lombok.Data;
+
+@Data
+public class CartVO {
+    private Integer id;
+    private Integer quantity;
+    private Float cost;
+    private String name;
+    private Float price;
+    private String fileName;
+}

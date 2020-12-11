@@ -30,25 +30,25 @@
                 </tr>
 
 
-                <tr class="goods" >
+                <tr class="goods" th:each="cart:${list}">
                     <td>
                         <div class="c_s_img">
-                            <a><img src="/images/c_2.jpg" width="73" height="73" /></a>
+                            <a><img th:src="'/images/' + ${cart.fileName}" width="73" height="73" /></a>
                         </div>
-                        <div>手机</div>
+                        <div th:text="${cart.name}"></div>
                     </td>
-                    <td align="center" style="color: #ff4e00;" id="price">3000</td>
+                    <td align="center" style="color: #ff4e00;" id="price" th:text="${cart.price}"></td>
                     <td align="center">
                         <div class="c_num">
                             <input type="hidden" class="productPrice" value="100"/>
                             <input type="hidden" class="productStock" value="5"/>
                             <input type="button" value="" onclick="subQuantity(this)" class="car_btn_1" />
-                            <input type="text" value="2" name="quantit" class="car_ipt" readonly="readonly" />
+                            <input type="text" th:value="${cart.quantity}" name="quantit" class="car_ipt" readonly="readonly" />
                             <input type="button" value="" onclick="addQuantity(this);" class="car_btn_2" />
                         </div>
                     </td>
                     <input type="hidden" value="1" class="id"/>
-                    <td align="center" style="color: #ff4e00;" class="qprice">￥6000</td>
+                    <td align="center" style="color: #ff4e00;" class="qprice" th:text="'￥' + ${cart.cost}"></td>
                     <td align="center">
                         <a href="javascript:void(0);"
                                           onclick="removeCart(this);" class="delete">删除</a></td>

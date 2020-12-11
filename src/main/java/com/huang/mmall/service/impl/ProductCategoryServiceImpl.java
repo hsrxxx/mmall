@@ -1,11 +1,14 @@
 package com.huang.mmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.huang.mmall.entity.Product;
 import com.huang.mmall.entity.ProductCategory;
 import com.huang.mmall.mapper.ProductCategoryMapper;
+import com.huang.mmall.mapper.ProductMapper;
 import com.huang.mmall.service.ProductCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.huang.mmall.vo.ProductCategoryVO;
+import com.huang.mmall.vo.ProductVO;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
     @Autowired
     private ProductCategoryMapper productCategoryMapper;
 
+    @Autowired
+    private ProductMapper productMapper;
+
     @Override
     public List<ProductCategoryVO> getAllProductCategoryVO() {
 //        // 实体类转VO
@@ -50,6 +56,19 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
         wrapper.eq("type", 1);
         List<ProductCategory> levelOne = productCategoryMapper.selectList(wrapper);
         List<ProductCategoryVO> levelOneVO = levelOne.stream().map(e -> new ProductCategoryVO(e.getId(), e.getName())).collect(Collectors.toList());
+        // 图片赋值
+        // 商品信息赋值
+        for (int i = 0; i < levelOneVO.size(); i++) {
+            levelOneVO.get(i).setBannerImg("/images/banner" + i + ".png");
+            levelOneVO.get(i).setTopImg("/images/top" + i + ".png");
+            wrapper = new QueryWrapper();
+            wrapper.eq("categorylevelone_id", levelOneVO.get(i).getId());
+            List<Product> productList = productMapper.selectList(wrapper);
+            List<ProductVO> productVOList = productList.stream()
+                    .map(e -> new ProductVO(e.getId(),e.getName(),e.getPrice(),e.getFileName())).collect(Collectors.toList());
+            levelOneVO.get(i).setProductVOList(productVOList);
+        }
+
         for (ProductCategoryVO productCategoryOneVO : levelOneVO) {
             wrapper = new QueryWrapper();
             wrapper.eq("type", 2);

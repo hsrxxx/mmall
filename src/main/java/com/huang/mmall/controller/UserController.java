@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huang.mmall.entity.User;
 import com.huang.mmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,19 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/register")
+    public String register(User user, Model model){
+        boolean result = false;
+        try {
+            result = userService.save(user);
+        } catch (Exception e){
+            model.addAttribute("error", user.getLoginName() + "已存在!");
+            return "register";
+        }
+        if (result) return "login";
+        return "register";
+    }
 
     @PostMapping("/login")
     public String login(String loginName, String password, HttpSession session){

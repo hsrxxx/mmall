@@ -4,6 +4,7 @@
 <div th:fragment="source">
     <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <link rel="shortcut icon" href="../resources/favicon.ico" th:href="@{/static/favicon.ico}"/>
 </div>
 
 <!-- 头文件 -->
@@ -186,9 +187,9 @@
                                 <div class="zj_l">
                                     <div class="zj_l_c" th:each="levelTwo:${levelOne.children}">
                                         <h2>
-                                            <a href="/productList.html" th:text="${levelTwo.name}"></a>
+                                            <a th:href="'/product/list/two/' + ${levelTwo.id}" th:text="${levelTwo.name}"></a>
                                         </h2>
-                                        <a href="/productList.html" th:each="levelThree:${levelTwo.children}" th:text="${levelThree.name}"></a>
+                                        <a th:href="'/product/list/three/' + ${levelThree.id}" th:each="levelThree:${levelTwo.children}" th:text="${levelThree.name}"></a>
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +201,7 @@
             <ul class="menu_r">
                 <li><a href="/productCategory/list">首页</a></li>
                 <li th:each="productCategory:${list}">
-                    <a href="/productList.html" th:text="${productCategory.name}"></a>
+                    <a th:href="'/product/list/one/' + ${productCategory.id}" th:text="${productCategory.name}"></a>
                 </li>
             </ul>
         </div>

@@ -15,25 +15,23 @@
 <div class="i_bg">
     <div class="postion">
     </div>
-    <div class="content" style="margin-left: 390px">
+    <div class="content" style="margin-left: 580px">
         <div id="tsShopContainer" style="float:left;">
             <div id="tsImgS">
-                <a href="/images/c_3.jpg" title="Images" class="MagicZoom" id="MagicZoom">
-                    <img src="/images/c_3.jpg" width="390" height="390" style="border:1px solid #EAEAEA;"/>
-                </a>
+                <img th:src="'/images/' + ${product.fileName}" width="390" height="390" style="border:1px solid #EAEAEA;"/>
             </div>
         </div>
         <div class="pro_des">
             <div class="des_name">
                 <input type="hidden" value="1"  name="entityId" class="n_ipt"/>
-                <p>手机</p>
+                <p th:text="${product.name}"></p>
                 “开业巨惠，北京专柜直供”，不光低价，“真”才靠谱！
             </div>
             <div class="des_price">
-                本店价格：<b>100</b><br/>
+                本店价格：<b th:text="${product.price}"></b><br/>
             </div>
             <div class="des_price">
-                库存：<b id="stock">20</b><br/>
+                库存：<b id="stock" th:text="${product.stock}"></b><br/>
             </div>
             <div class="des_choice">
                 <span class="fl">型号选择：</span>
@@ -74,7 +72,7 @@
                 <input type="hidden" id="productId" value="1">
                 <input type="hidden" id="productPrice" value="1">
                 <span class="fl">
-                     <img src="/images/j_car.png" onclick="addCart()"/>
+                     <img src="/images/j_car.png" th:onclick="'addCart(' + ${product.id} + ',' + ${product.price} + ')'"/>
                 </span>
             </div>
         </div>
@@ -119,11 +117,11 @@
                 <div class="des_con">
                     <table border="0" align="center" style="width:745px; font-size:14px; font-family:'宋体';" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td>商品</td>
+                            <td th:text="${product.description}"></td>
                         </tr>
                     </table>
                     <p align="center">
-                        <img src="/images/c_3.jpg" width="185" height="155">
+                        <img th:src="'/images/' + ${product.fileName}" width="185" height="155">
                     </p>
                 </div>
             </div>
