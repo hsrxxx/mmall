@@ -15,7 +15,7 @@ public class UserFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         if(session.getAttribute("user") == null){
-            response.sendRedirect("/productCategory/list");
+            response.sendRedirect("/login");
         }else{
             filterChain.doFilter(servletRequest, servletResponse);
         }

@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author 松仁
  * @since 2020-12-08
  */
-public class Order implements Serializable {
+public class Orders implements Serializable {
 
     private static final long serialVersionUID=1L;
 

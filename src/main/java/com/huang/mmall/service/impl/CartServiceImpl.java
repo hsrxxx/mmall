@@ -62,8 +62,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements Ca
         for (Cart cart : cartList) {
             CartVO cartVO = new CartVO();
             Product product = productMapper.selectById(cart.getProductId());
-            BeanUtils.copyProperties(cart, cartVO);
             BeanUtils.copyProperties(product, cartVO);
+            BeanUtils.copyProperties(cart, cartVO);
             cartVOList.add(cartVO);
         }
         return cartVOList;

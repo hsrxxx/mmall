@@ -1,6 +1,6 @@
 package com.huang.mmall.mapper;
 
-import com.huang.mmall.entity.Order;
+import com.huang.mmall.entity.Orders;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 松仁
  * @since 2020-12-08
  */
-public interface OrderMapper extends BaseMapper<Order> {
+public interface OrderMapper extends BaseMapper<Orders> {
 
 }

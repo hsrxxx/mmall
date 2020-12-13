@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.huang.mmall.enums.GenderEnum;
+
 import java.io.Serializable;
 
 /**
@@ -43,7 +45,7 @@ public class User implements Serializable {
       /**
      * 性别(1:男 0：女)
      */
-      private Integer gender;
+      private GenderEnum gender;
 
       /**
      * 身份证号
@@ -101,11 +103,11 @@ public class User implements Serializable {
           this.password = password;
       }
     
-    public Integer getGender() {
+    public GenderEnum getGender() {
         return gender;
     }
 
-      public void setGender(Integer gender) {
+      public void setGender(GenderEnum gender) {
           this.gender = gender;
       }
     
