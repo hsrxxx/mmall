@@ -3,6 +3,7 @@ package com.huang.mmall.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huang.mmall.entity.User;
+import com.huang.mmall.enums.GenderEnum;
 import com.huang.mmall.mapper.CartMapper;
 import com.huang.mmall.service.CartService;
 import com.huang.mmall.service.UserService;
@@ -38,6 +39,7 @@ public class UserController {
     @PostMapping("/register")
     public String register(User user, Model model){
         boolean result = false;
+        System.out.println(user.getGender());
         try {
             result = userService.save(user);
         } catch (Exception e){

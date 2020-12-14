@@ -2,13 +2,12 @@ package com.huang.mmall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huang.mmall.entity.*;
-import com.huang.mmall.mapper.CartMapper;
-import com.huang.mmall.mapper.OrderDetailMapper;
-import com.huang.mmall.mapper.OrderMapper;
-import com.huang.mmall.mapper.UserAddressMapper;
+import com.huang.mmall.mapper.*;
 import com.huang.mmall.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.huang.mmall.service.UserAddressService;
+import com.huang.mmall.vo.OrderDetailVO;
+import com.huang.mmall.vo.OrdersVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,13 @@ public class OrdersServiceImpl extends ServiceImpl<OrderMapper, Orders> implemen
     private CartMapper cartMapper;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private OrderDetailMapper orderDetailMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public boolean save(Orders orders, User user, String address, String remark) {
@@ -52,8 +57,10 @@ public class OrdersServiceImpl extends ServiceImpl<OrderMapper, Orders> implemen
             wrapper.eq("user_id",user.getId());
             wrapper.eq("isdefault",1);
             UserAddress oldDefault = userAddressMapper.selectOne(wrapper);
-            oldDefault.setIsdefault(0);
-            userAddressMapper.updateById(oldDefault);
+            if (oldDefault != null){
+                oldDefault.setIsdefault(0);
+                userAddressMapper.updateById(oldDefault);
+            }
             userAddressMapper.insert(userAddress);
             //修改订单地址
             orders.setUserAddress(address);
@@ -92,5 +99,33 @@ public class OrdersServiceImpl extends ServiceImpl<OrderMapper, Orders> implemen
         wrapper1.eq("user_id", user.getId());
         cartMapper.delete(wrapper1);
         return true;
+    }
+
+    @Override
+    public List<OrdersVO> getAllOrdersVOByUserId(Integer id) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("user_id", id);
+        List<Orders> ordersList = list(wrapper);
+        List<OrdersVO> ordersVOList = new ArrayList<>();
+        for (Orders orders : ordersList) {
+            OrdersVO ordersVO = new OrdersVO();
+            User user = userMapper.selectById(id);
+            BeanUtils.copyProperties(user, ordersVO);
+            BeanUtils.copyProperties(orders, ordersVO);
+            List<OrderDetailVO> orderDetailVOList = new ArrayList<>();
+            wrapper = new QueryWrapper();
+            wrapper.eq("order_id", orders.getId());
+            List<OrderDetail> orderDetailList = orderDetailMapper.selectList(wrapper);
+            for (OrderDetail orderDetail : orderDetailList) {
+                OrderDetailVO orderDetailVO = new OrderDetailVO();
+                BeanUtils.copyProperties(orderDetail, orderDetailVO);
+                Product product = productMapper.selectById(orderDetail.getProductId());
+                BeanUtils.copyProperties(product, orderDetailVO);
+                orderDetailVOList.add(orderDetailVO);
+            }
+            ordersVO.setOrderDetailVOList(orderDetailVOList);
+            ordersVOList.add(ordersVO);
+        }
+        return ordersVOList;
     }
 }

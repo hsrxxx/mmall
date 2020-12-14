@@ -18,21 +18,21 @@
             <div class="left_m">
                 <div class="left_m_t t_bg1">订单中心</div>
                 <ul>
-                    <li><a href="/orderList.html" >我的订单</a></li>
+                    <li><a href="/orderDetail/list" >我的订单</a></li>
                 </ul>
             </div>
             <div class="left_m">
                 <div class="left_m_t t_bg2">会员中心</div>
                 <ul>
-                    <li><a href="/userInfo.html" >用户信息</a></li>
-                    <li><a href="#" >地址管理</a></li>
+                    <li><a href="/user/userInfo" >用户信息</a></li>
+                    <li><a href="/userAddress/list" >地址管理</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="m_right">
             <p></p>
-            <div class="mem_tit">资讯列表</div>
+            <div class="mem_tit">地址列表</div>
             <table border="0" class="order_tab"
                    style="width: 930px; text-align: center; margin-bottom: 30px;"
                    cellspacing="0" cellpadding="0">
@@ -46,39 +46,16 @@
                     <td width="25%">操作</td>
                 </tr>
 
-                <tr>
-                    <td>1</td>
-                    <td>小寨</td>
-                    <td>2020-01-01</td>
-                    <td>公司</td>
-                    <td>是</td>
+                <tr th:each="address:${addressList}">
+                    <td th:text="${address.getId()}"></td>
+                    <td th:text="${address.getAddress()}"></td>
+                    <td th:text="${address.getCreateTime()}"></td>
+                    <td th:text="${address.getRemark()}"></td>
+                    <td th:if="${address.getIsdefault() == 1}">是</td>
+                    <td th:if="${address.getIsdefault() == 0}">否</td>
                     <td>
-                        <a href="">删除</a>
-                        <a href="">修改</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <td>小寨</td>
-                    <td>2020-01-01</td>
-                    <td>公司</td>
-                    <td>是</td>
-                    <td>
-                        <a href="">删除</a>
-                        <a href="">修改</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <td>小寨</td>
-                    <td>2020-01-01</td>
-                    <td>公司</td>
-                    <td>是</td>
-                    <td>
-                        <a href="">删除</a>
-                        <a href="">修改</a>
+                        <a th:href="'/userAddress/deleteById/' + ${address.id}">删除</a>
+<!--                        <a href="">修改</a>-->
                     </td>
                 </tr>
 

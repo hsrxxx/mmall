@@ -88,7 +88,7 @@
         </span>
             <span class="fr">
             <span class="fl" th:if="${session.user == null}">你好，请<a href="/login.html" style="color:#ff4e00;">登录</a>&nbsp;<a href="/register.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;&nbsp;</span>
-            <span class="fl" th:if="${session.user != null}"><a href="/user/userInfo" >欢迎回来，<spen th:text="${session.user.userName}"></spen></a>&nbsp;|&nbsp;<a href="/orderList.html">我的订单</a>&nbsp;</span>
+            <span class="fl" th:if="${session.user != null}"><a href="/user/userInfo" >欢迎回来，<spen th:text="${session.user.userName}"></spen></a>&nbsp;|&nbsp;<a href="/orderDetail/list">我的订单</a>&nbsp;</span>
             <span class="fl" th:if="${session.user != null}">|&nbsp;<a href="/user/logout">注销</a></span>
         </span>
         </div>

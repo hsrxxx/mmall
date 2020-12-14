@@ -45,7 +45,7 @@ public class User implements Serializable {
       /**
      * 性别(1:男 0：女)
      */
-      private GenderEnum gender;
+      private Integer gender;
 
       /**
      * 身份证号
@@ -103,11 +103,11 @@ public class User implements Serializable {
           this.password = password;
       }
     
-    public GenderEnum getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-      public void setGender(GenderEnum gender) {
+      public void setGender(Integer gender) {
           this.gender = gender;
       }
     

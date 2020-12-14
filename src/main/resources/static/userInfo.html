@@ -18,14 +18,14 @@
             <div class="left_m">
                 <div class="left_m_t t_bg1">订单中心</div>
                 <ul>
-                    <li><a href="/orderList.html" >我的订单</a></li>
+                    <li><a href="/orderDetail/list" >我的订单</a></li>
                 </ul>
             </div>
             <div class="left_m">
                 <div class="left_m_t t_bg2">会员中心</div>
                 <ul>
-                    <li><a href="#" >用户信息</a></li>
-                    <li><a href="/userAddressList.html" >地址管理</a></li>
+                    <li><a href="/user/userInfo" >用户信息</a></li>
+                    <li><a href="/userAddress/list" >地址管理</a></li>
                 </ul>
             </div>
         </div>
@@ -39,7 +39,8 @@
                             <div class="m_user" th:text="${session.user.userName}"></div><br />
                             <p>
                                 性别:
-                                <span th:text="${session.user.gender.value}"></span>
+                                <span th:if="${session.user.gender == 0}">女</span>
+                                <span th:if="${session.user.gender == 1}">男</span>
                                 <br /><br />
                                 邮箱:
                                 <span th:text="${session.user.email}"></span><br /><br />
